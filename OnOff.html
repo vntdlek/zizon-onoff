@@ -1,0 +1,77 @@
+<!doctype html>
+<head>
+  <meta charset="utf-8">
+
+  <title>On Off</title>
+  <meta name="description" content="My Parse App">
+  <meta name="viewport" content="width=device-width">
+
+  <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.3.1.min.js"></script>
+
+  <script type="text/javascript" src="https://npmcdn.com/parse@2.1.0/dist/parse.js"></script>
+
+</head>
+
+<body>
+	<div>
+    <h4>ON/Off</h4></li>
+    
+    <p> 현재온도 : <input type="text" id = "Ondo"> <input type="button" value="ON" onclick="ondo()"></p>
+    <p> 자동설정 : <input type="button" value="ON" onclick="On()">
+    <input type="button" value="OFF" onclick="Off()"></p>
+    
+    <p> 로그아웃  : <input type="button" value="LOGOUT" onclick="logout()"></p>
+
+  </div>
+	<script type="text/javascript">
+        Parse.initialize("daniel1717");
+        Parse.serverURL="https://daniel1717.herokuapp.com/parsee"
+     
+
+function ondo(){
+     var id = $("#Ondo").val();
+   if(id >= 25 && Parse.User.current().get("OnOff") != "OFF"){
+              Parse.User.current().set("auto","ON");
+               Parse.User.current().save();
+                alert("선풍기가 켜졌습니다.");
+          }
+          else {
+             Parse.User.current().set("auto","OFF");
+              Parse.User.current().save();
+               alert("선풍기가 꺼졌습니다.");
+                }
+        }
+    function On() {
+
+    Parse.User.current().set("OnOff","ON");
+    Parse.User.current().save();
+    alert("자동 센서가 켜졌습니다.");
+      var id = $("#Ondo").val();
+   if(id >= 25){
+              Parse.User.current().set("auto","ON");
+               Parse.User.current().save();
+               alert("선풍기가 켜졌습니다.");
+          }
+          else {
+             Parse.User.current().set("auto","OFF");
+              Parse.User.current().save();
+                }
+}
+ function Off() {
+
+    Parse.User.current().set("OnOff","OFF");
+    Parse.User.current().save();
+    alert("자동 센서가 꺼졌습니다.");
+
+}
+    
+    function logout() {
+          Parse.User.logOut();
+          window.location = "signin.html";
+
+        }
+	</script>
+
+</body>
+
+</html>
